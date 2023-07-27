@@ -6,23 +6,28 @@ struct Node {
     struct Node* next;
 };
 
-struct Node* insert_end(struct Node* start) {
-    struct Node* temp = (struct Node*)malloc(sizeof(int));
-    int num;
-    printf("Enter the data\n");
-    scanf("%d", &num);
-    temp->data=num;
-    temp->next=NULL;
-    struct Node* ptr = start;
-    if (ptr == NULL){
-        start = temp;
-        return start;
+struct Node* GetNewNode(int data)
+{
+    struct Node* new_node = (struct Node*)malloc(sizeof(int));
+    new_node->data=data;
+    new_node->next=NULL;
+    return new_node;
+
+}
+
+struct Node* insert_end(struct Node* head, int new_data) {
+    struct Node* new_node = GetNewNode(new_data);
+    if (head == NULL){// first time entry
+        head= new_node;
+        return head;
     }
-    while(ptr->next != NULL) {
+    struct Node* ptr = head;
+    while(ptr->next != NULL) {// to fetch the last node
         ptr = ptr->next;
     }
-    ptr->next = temp;
-    return start;
+    // ptr is head
+    ptr->next = new_node;// assign last node to new node
+    return head;
 }
 
 void Print(struct Node *head) {
@@ -37,9 +42,9 @@ void Print(struct Node *head) {
 
 int main() {
     struct Node* head = NULL;
-    head = insert_end(head);
-    head = insert_end(head);
-    head = insert_end(head);
-    head = insert_end(head);
+    head = insert_end(head,10);
+    head = insert_end(head,20);
+    head = insert_end(head,30);
+    head = insert_end(head,40);
     Print(head);
 }
